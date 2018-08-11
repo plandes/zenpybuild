@@ -35,6 +35,7 @@ class ConfAppCommandLine(OneConfPerActionOptionsCli):
                               'doc': 'Delete the tag',
                               'opts': [repo_dir_op]},
                              {'name': 'recreate',
+                              'meth': 'recreate_last_tag',
                               'opts': [repo_dir_op]}],
                  'doc': 'Recreate the tag (delete then add)'},
                 {'name': 'setup',

@@ -12,7 +12,7 @@ logger = logging.getLogger('zensols.pybuild.test.su')
 class TestSetupUtil(unittest.TestCase):
     def test_setup_util(self):
         setup_str = """name=zensols.progname
-packages=['zensols', 'zensols.pybuild']
+packages=[]
 version=0.0.1
 description=This project attempts to export a local Zotero library to a usable HTML website.
 author=Paul Landes
@@ -31,6 +31,7 @@ entry_points={'console_scripts': ['progname=zensols.progname:main']}
         su = SetupUtil(
             setup_path=setup_path,
             name='zensols.progname',
+            package_names=['zensols'],
             user='plandes',
             project='progname',
             description='This project attempts to export a local Zotero library to a usable HTML website.',

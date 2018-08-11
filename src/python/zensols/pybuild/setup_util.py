@@ -28,7 +28,8 @@ download_url long_description long_description_content_type install_requires
 keywords classifiers entry_points
 """
 
-    def __init__(self, name, user, project, setup_path=None, packages=None,
+    def __init__(self, name, user, project, setup_path=None,
+                 package_names=None,
                  readme_file='README.md', req_file='requirements.txt',
                  **kwargs):
         self.name = name
@@ -39,7 +40,7 @@ keywords classifiers entry_points
         else:
             setup_path = Path(setup_path)
         self.setup_path = setup_path
-        self._packages = packages
+        self.package_names = package_names
         self.readme_file = readme_file
         self.req_file = req_file
         self.__dict__.update(**kwargs)
@@ -57,28 +58,15 @@ keywords classifiers entry_points
         logging.debug('found root dir: {}'.format(dname))
         return dname
 
-    def _create_packages(self):
-        pkgs = []
-        pkgdirs = filter(lambda x: x.is_dir(), self.setup_path.iterdir())
-        for dname in pkgdirs:
-            logger.debug('iterating over package dir: {}'.format(dname))
-            for root, subdirs, files in os.walk(dname.resolve()):
-                logger.debug('iter root: {}, dname={}'.format(
-                    root, dname.resolve()))
-                root = Path(root).relative_to(dname.resolve()).name
-                logger.debug('relative root: {}'.format(root))
-                if root != '.' and root != '__pycache__':
-                    pkg = dname.name
-                    if len(root) > 0:
-                        pkg += '.' + root.replace(os.sep, '.')
-                    pkgs.append(pkg)
-        return pkgs
-
     @property
     def packages(self):
-        if self._packages is None:
-            self._packages = self._create_packages()
-        return self._packages
+        dirs = []
+        for dname in self.package_names:
+            for root, subdirs, files in os.walk(dname):
+                root = os.path.relpath(root, dname)
+                if root != '.':
+                    dirs.append(os.path.join(dname, root.replace(os.sep, '.')))
+        return dirs
 
     @property
     def long_description(self):
