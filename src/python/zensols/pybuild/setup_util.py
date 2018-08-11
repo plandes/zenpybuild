@@ -28,7 +28,7 @@ download_url long_description long_description_content_type install_requires
 keywords classifiers entry_points
 """
 
-    def __init__(self, name, user, project, setup_path=None,
+    def __init__(self, name, user, project, setup_path=None, packages=None,
                  readme_file='README.md', req_file='requirements.txt',
                  **kwargs):
         self.name = name
@@ -39,6 +39,7 @@ keywords classifiers entry_points
         else:
             setup_path = Path(setup_path)
         self.setup_path = setup_path
+        self._packages = packages
         self.readme_file = readme_file
         self.req_file = req_file
         self.__dict__.update(**kwargs)
@@ -49,12 +50,14 @@ keywords classifiers entry_points
         while nname != dname:
             logger.debug('nname={}, dname={}'.format(nname, dname))
             nname, dname = dname, dname.parent
-            if dname.joinpath(self.readme_file).is_file():
+            rm_file = dname.joinpath(self.readme_file)
+            logging.debug('rm file: {}'.format(rm_file))
+            if rm_file.is_file():
                 break
+        logging.debug('found root dir: {}'.format(dname))
         return dname
 
-    @property
-    def packages(self):
+    def _create_packages(self):
         pkgs = []
         pkgdirs = filter(lambda x: x.is_dir(), self.setup_path.iterdir())
         for dname in pkgdirs:
@@ -70,6 +73,12 @@ keywords classifiers entry_points
                         pkg += '.' + root.replace(os.sep, '.')
                     pkgs.append(pkg)
         return pkgs
+
+    @property
+    def packages(self):
+        if self._packages is None:
+            self._packages = self._create_packages()
+        return self._packages
 
     @property
     def long_description(self):
@@ -152,7 +161,7 @@ keywords classifiers entry_points
                 writer.write('{}={}\n'.format(field, props[field]))
 
     def setup(self):
-        props = self.get_properties()
+        _, props = self.get_properties()
         sio = StringIO()
         self.write(sio)
         logger.info('setting up with {}'.format(sio.getvalue()))
