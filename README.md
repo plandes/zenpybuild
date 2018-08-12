@@ -13,8 +13,7 @@ The easist way to install the command line program is via the `pip` installer:
 pip install zensols.pybuild
 ```
 
-Binaries are (not yet) available on [pypi].  If you want it, please create an
-issue.  Otherwise, I'll keep this as my own build process for now.
+Binaries are also available on [pypi].
 
 
 ## Usage
