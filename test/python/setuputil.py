@@ -31,7 +31,7 @@ entry_points={'console_scripts': ['progname=zensols.progname:main']}
         su = SetupUtil(
             setup_path=setup_path,
             name='zensols.progname',
-            package_names=['zensols'],
+            #package_names=['zensols'],
             user='plandes',
             project='progname',
             description='This project attempts to export a local Zotero library to a usable HTML website.',

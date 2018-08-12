@@ -40,6 +40,12 @@ keywords classifiers entry_points
         else:
             setup_path = Path(setup_path)
         self.setup_path = setup_path
+        if package_names is None:
+            m = re.match(r'^(.+)\..*', name)
+            if m:
+                package_names = [m.group(1)]
+            else:
+                package_names = [name]
         self.package_names = package_names
         self.readme_file = readme_file
         self.req_file = req_file
@@ -61,8 +67,10 @@ keywords classifiers entry_points
     @property
     def packages(self):
         dirs = []
+        logger.debug('walking on {}'.format(self.package_names))
         for dname in self.package_names:
             for root, subdirs, files in os.walk(dname):
+                logger.debug('root: {}'.format(root))
                 root = os.path.relpath(root, dname)
                 if root != '.':
                     dirs.append(os.path.join(dname, root.replace(os.sep, '.')))
