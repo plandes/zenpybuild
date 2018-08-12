@@ -1,8 +1,9 @@
-# Inspect and iterate on git tags.
+# Inspect and iterate on git tags and invoke setup utils.
 
 [![Travis CI Build Status][travis-badge]][travis-link]
 
-Inspect and iterate on git tags.  This manages tags in a git repository.
+Inspect and iterate on git tags.  This manages tags in a git repository and
+invokes setup utils.  This is used in the [zen build setup] as well.
 
 
 ## Obtaining
@@ -12,7 +13,16 @@ The easist way to install the command line program is via the `pip` installer:
 pip install zensols.pybuild
 ```
 
-Binaries are also available on [pypi].
+Binaries are (not yet) available on [pypi].  If you want it, please create an
+issue.  Otherwise, I'll keep this as my own build process for now.
+
+
+## Usage
+
+See the [zotsite setup.py] file for an example of how to use it as in setup
+tools.
+
+
 
 
 ## Changelog
@@ -47,3 +57,6 @@ SOFTWARE.
 [travis-link]: https://travis-ci.org/plandes/zenpybuild
 [travis-badge]: https://travis-ci.org/plandes/zenpybuild.svg?branch=master
 [pypi]: https://pypi.org/project/zensols.pybuild/
+
+[zen build setup]: https://github.com/plandes/zenbuild
+[zotsite setup.py]: https://github.com/plandes/zotsite/blob/master/src/python/setup.py
