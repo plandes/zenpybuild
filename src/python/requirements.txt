@@ -1,3 +1,2 @@
 zensols.actioncli>=0.6
-gitdb2>=2.0.3
-gitpython
+gitpython>=2.1.11
