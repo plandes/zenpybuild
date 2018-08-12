@@ -1,7 +1,7 @@
 ## makefile automates the build and deployment for python projects
 
 PROJ_TYPE=	python
-#PY_SRC_TEST_PKGS=	setuputil
+PY_SRC_TEST_PKGS=	tagutil
 
 # make build dependencies
 _ :=	$(shell [ ! -d .git ] && git init ; [ ! -d zenbuild ] && \
@@ -32,3 +32,7 @@ del:
 .PHONY:		printsetup
 printsetup:
 		make PYTHON_BIN_ARGS='prsetup -n zensols.someproj -u plandes -p someproj' run
+
+.PHONY:		tmp
+tmp:
+		make PYTHON_BIN_ARGS='info -r /Users/landes/view/util/grsync' run
