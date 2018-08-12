@@ -32,7 +32,3 @@ del:
 .PHONY:		printsetup
 printsetup:
 		make PYTHON_BIN_ARGS='prsetup -n zensols.someproj -u plandes -p someproj' run
-
-.PHONY:		tmp
-tmp:
-		make PYTHON_BIN_ARGS='info -r /Users/landes/view/util/grsync -w 2' run
