@@ -35,4 +35,4 @@ printsetup:
 
 .PHONY:		tmp
 tmp:
-		make PYTHON_BIN_ARGS='info -r /Users/landes/view/util/grsync' run
+		make PYTHON_BIN_ARGS='info -r /Users/landes/view/util/grsync -w 2' run

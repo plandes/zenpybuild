@@ -1,5 +1,4 @@
 import logging
-import re
 import sys
 import json
 from pathlib import Path
@@ -7,7 +6,7 @@ from datetime import datetime
 from git import Repo, TagReference
 from zensols.pybuild import Version
 
-logger = logging.getLogger('zensols.gittag.tag')
+logger = logging.getLogger('zensols.zenpybuild.tag')
 
 
 class TagUtil(object):
@@ -26,14 +25,15 @@ class TagUtil(object):
         logger.debug('tags: {}'.format(tags))
         tag_entries = []
         for tag in tags:
-            name = tag.object.tag
-            ver = tag.object.tag
+            logger.debug('{} ({})'.format(tag, type(tag)))
+            name = str(tag)
+            ver = Version.from_string(name)
             date = None
             if hasattr(tag.object, 'tagged_date'):
                 date = tag.object.tagged_date
             if ver is not None:
                 tag_entries.append({'name': name,
-                                    'ver': Version.from_string(ver),
+                                    'ver': ver,
                                     'date': date,
                                     'tag': tag,
                                     'message': tag.object.message})
@@ -62,9 +62,16 @@ class TagUtil(object):
             return commits[0]
 
     def get_info(self):
-        last_tag = self.get_last_tag()
-        inf = {'tag': last_tag,
-               'build_date': datetime.now().isoformat()}
+        inf = {'build_date': datetime.now().isoformat()}
+        last_entry = self.last_tag_entry()
+        if last_entry:
+            tag = last_entry['tag']
+            message = None
+            if hasattr(tag.object, 'message'):
+                message = tag.object.message
+            inf.update({'tag': last_entry['ver'].format(prefix=''),
+                        'name': last_entry['name'],
+                        'message': message})
         c = self.get_last_commit()
         if c:
             inf['commit'] = {'author': str(c.author),

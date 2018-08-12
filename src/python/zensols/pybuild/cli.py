@@ -12,8 +12,9 @@ class ConfAppCommandLine(OneConfPerActionOptionsCli):
                         'metavar': 'DIRECTORY',
                         'default': '.',
                         'help': 'path of the repository'}]
-        msg_op = ['-m', '--message', False,
+        msg_op = ['-m', '--message', True,
                   {'dest': 'message',
+                   'default': 'none',
                    'metavar': 'STRING',
                    'help': 'documentation for the new tag'}]
         cnf = {'executors':
