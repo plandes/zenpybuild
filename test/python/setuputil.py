@@ -21,7 +21,7 @@ url=https://github.com/plandes/progname
 download_url=https://github.com/plandes/progname/releases/download/v0.0.1/zensols.progname-0.0.1-py3-none-any.whl
 long_description=# Inspect and iterat...
 long_description_content_type=text/markdown
-install_requires=['zensols.actioncli>=0.6', 'gitdb2>=2.0.3']
+install_requires=['zensols.actioncli>=0.6', 'gitdb2>=2.0.3', 'gitpython']
 keywords=['akeyword']
 classifiers=['aclass']
 entry_points={'console_scripts': ['progname=zensols.progname:main']}
