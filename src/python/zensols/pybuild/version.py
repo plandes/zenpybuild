@@ -29,19 +29,39 @@ class Version(object):
     def __lt__(self, o):
         if self.major < o.major:
             return True
+        if self.major > o.major:
+            return False
+
         if self.minor < o.minor:
             return True
+        if self.minor > o.minor:
+            return False
+
         if self.debug < o.debug:
             return True
+        if self.debug > o.debug:
+            return False
+
+        # equal
         return False
 
     def __le__(self, o):
         if self.major <= o.major:
             return True
+        if self.major >= o.major:
+            return False
+
         if self.minor <= o.minor:
             return True
+        if self.minor >= o.minor:
+            return False
+
         if self.debug <= o.debug:
             return True
+        if self.debug >= o.debug:
+            return False
+
+        # equal
         return False
 
     def __eq__(self, o):
@@ -50,5 +70,5 @@ class Version(object):
     def __str__(self):
         return self.format()
 
-    def __repr___(self):
+    def __repr__(self):
         return self.__str__()

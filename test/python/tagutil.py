@@ -53,6 +53,22 @@ class TestTagUtil(unittest.TestCase):
         self.assertTrue(Version.from_string('v1.3.3') >= Version.from_string('v1.2.3'))
         self.assertTrue(Version.from_string('v1.2.4') >= Version.from_string('v1.2.3'))
 
+    def test_ver_sort(self):
+        v1 = Version.from_string('v0.0.6')
+        v2 = Version.from_string('v1.0.0')
+        self.assertEqual('v0.0.6', str(v1))
+        self.assertEqual('v1.0.0', str(v2))
+        self.assertTrue(v1 < v2)
+        self.assertTrue(v2 > v1)
+        vers = [v2, v1]
+        vers = list(sorted(vers))
+        self.assertTrue(vers[0] == v1)
+        self.assertTrue(vers[1] == v2)
+        vers = [v1, v2]
+        vers = list(sorted(vers))
+        self.assertTrue(vers[0] == v1)
+        self.assertTrue(vers[1] == v2)
+
     def test_tmp(self):
         tu = TagUtil(dry_run=True)
         entries = tu.get_entries()
