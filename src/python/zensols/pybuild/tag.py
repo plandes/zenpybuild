@@ -104,7 +104,11 @@ class TagUtil(object):
             TagReference.create(self.repo, name, message=msg)
 
     def create(self):
-        ver = self.last_tag_entry()['ver']
+        entry = self.last_tag_entry()
+        if entry is None:
+            ver = Version.from_string('v0.0.0')
+        else:
+            ver = entry['ver']
         ver.increment('debug')
         new_tag_name = str(ver)
         logger.info('creating {} with commit <{}>'.format(
