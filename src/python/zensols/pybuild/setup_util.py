@@ -25,12 +25,12 @@ class SetupUtil(object):
     FIELDS = """
 name packages package_data version description author author_email url
 download_url long_description long_description_content_type install_requires
-keywords classifiers entry_points
+keywords classifiers
 """
 
     def __init__(self, name, user, project, setup_path=None,
-                 package_names=None,
-                 readme_file='README.md', req_file='requirements.txt',
+                 package_names=None, readme_file='README.md',
+                 req_file='requirements.txt', has_entry_points=True,
                  **kwargs):
         self.name = name
         self.user = user
@@ -49,6 +49,7 @@ keywords classifiers entry_points
         self.package_names = package_names
         self.readme_file = readme_file
         self.req_file = req_file
+        self.has_entry_points = has_entry_points
         self.__dict__.update(**kwargs)
 
     @property
@@ -140,6 +141,8 @@ keywords classifiers entry_points
         fields = self.FIELDS.split()
         if paths:
             fields.extend('setup_path root_path'.split())
+        if self.has_entry_points:
+            fields.append('entry_points')
         fset = set(fields)
         props = {'long_description_content_type': 'text/markdown'}
         for mem in filter(lambda x: x[0] in fset, inspect.getmembers(self)):

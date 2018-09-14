@@ -2,6 +2,7 @@ import os
 from os import path
 from setuptools import setup
 
+VERSION = '0.0.5'
 README_FILE = 'README.md'
 REQUIREMENTS_FILE = 'requirements.txt'
 
@@ -44,12 +45,12 @@ def get_requires():
 setup(
     name="zensols.pybuild",
     packages=get_packages(['zensols', 'zensols.pybuild']),
-    version='0.0.4',
+    version=VERSION,
     description='Inspect and iterate on git tags.  This manages tags in a git repository.',
     author='Paul Landes',
     author_email='landes@mailc.net',
     url='https://github.com/plandes/zenpybuild',
-    download_url='https://github.com/plandes/zenpybuild/releases/download/v0.0.4/zensols.pybuild-0.0.4-py3-none-any.whl',
+    download_url='https://github.com/plandes/zenpybuild/releases/download/v{}/zensols.pybuild-{}-py3-none-any.whl'.format(VERSION, VERSION),
     long_description=get_long_description(),
     long_description_content_type='text/markdown',
     install_requires=get_requires(),
