@@ -8,7 +8,7 @@ from pathlib import Path
 from zensols.pybuild import TagUtil
 import setuptools
 
-logger = logging.getLogger('zensols.pybuild.su')
+logger = logging.getLogger(__name__)
 
 
 class SetupUtilCli(object):

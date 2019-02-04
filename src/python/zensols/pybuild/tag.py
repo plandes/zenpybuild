@@ -6,7 +6,7 @@ from datetime import datetime
 from git import Repo, TagReference
 from zensols.pybuild import Version
 
-logger = logging.getLogger('zensols.zenpybuild.tag')
+logger = logging.getLogger(__name__)
 
 
 class TagUtil(object):
