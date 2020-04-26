@@ -9,7 +9,7 @@ class Version(object):
 
     @classmethod
     def from_string(clz, s):
-        m = re.search('^v?(\d+)\.(\d+)\.(\d+)$', s)
+        m = re.search(r'^v?(\d+)\.(\d+)\.(\d+)$', s)
         if m is not None:
             return Version(int(m.group(1)), int(m.group(2)), int(m.group(3)))
 

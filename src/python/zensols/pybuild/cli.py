@@ -1,7 +1,9 @@
-from zensols.actioncli import OneConfPerActionOptionsCli
+from zensols.cli import OneConfPerActionOptionsCli
 from zensols.pybuild import TagUtil, SetupUtilCli
 
-VERSION = '0.1'
+
+# also update in src/python/setup.py
+VERSION = '0.0.6'
 
 
 # recommended app command line

@@ -2,7 +2,8 @@ import os
 from os import path
 from setuptools import setup
 
-VERSION = '0.0.5'
+# also update in src/python/zensols/pybuild/cli.py
+VERSION = '0.0.6'
 README_FILE = 'README.md'
 REQUIREMENTS_FILE = 'requirements.txt'
 

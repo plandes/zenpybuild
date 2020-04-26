@@ -5,8 +5,8 @@ import sys
 import inspect
 from io import StringIO
 from pathlib import Path
-from zensols.pybuild import TagUtil
 import setuptools
+from zensols.pybuild import TagUtil
 
 logger = logging.getLogger(__name__)
 
