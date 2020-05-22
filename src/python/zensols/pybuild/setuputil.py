@@ -11,22 +11,16 @@ from zensols.pybuild import TagUtil
 logger = logging.getLogger(__name__)
 
 
-class SetupUtilCli(object):
-    def __init__(self, **kwargs):
-        self.util = SetupUtil(**kwargs)
-
-    def write(self):
-        self.util.write()
-
-
 class SetupUtil(object):
-    """Utilities for creating python distributed builds (wheels etc)."""
+    """Utilities for creating python distributed builds (wheels etc).
 
+    """
     FIELDS = """
 name packages package_data version description author author_email url
 download_url long_description long_description_content_type install_requires
 keywords classifiers
 """
+    DO_SETUP = True
 
     def __init__(self, name, user, project, setup_path=None,
                  package_names=None, readme_file='README.md',
@@ -160,8 +154,24 @@ keywords classifiers
                 writer.write('{}={}\n'.format(field, props[field]))
 
     def setup(self):
-        _, props = self.get_properties()
-        sio = StringIO()
-        self.write(sio)
-        logger.info('setting up with {}'.format(sio.getvalue()))
-        setuptools.setup(**props)
+        if self.DO_SETUP:
+            _, props = self.get_properties()
+            sio = StringIO()
+            self.write(sio)
+            logger.info('setting up with {}'.format(sio.getvalue()))
+            setuptools.setup(**props)
+        else:
+            return self
+
+    @classmethod
+    def source(cls, path: Path = Path('src/python/setup.py'), var: str = 'su'):
+        do_setup = cls.DO_SETUP
+        try:
+            cls.DO_SETUP = False
+            with open(path) as f:
+                code = f.read()
+            locs = {'__file__': path}
+            exec(code, locs)
+            return locs[var]
+        finally:
+            cls.DO_SETUP = do_setup
