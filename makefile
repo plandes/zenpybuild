@@ -1,7 +1,7 @@
 ## makefile automates the build and deployment for python projects
 
 PROJ_TYPE=		python
-PY_SRC_TEST_PKGS=	tagutil
+PROJ_MODULES=		git python-doc
 
 include ./zenbuild/main.mk
 
