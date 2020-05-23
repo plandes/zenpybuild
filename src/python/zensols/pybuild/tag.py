@@ -25,7 +25,7 @@ class Tag(object):
     (i.e. ``<major>.<minor>.<version>``).
 
     """
-    def __init__(self, repo_dir: str = '.', message: str = 'none',
+    def __init__(self, repo_dir: Path = Path('.'), message: str = 'none',
                  dry_run: bool = False):
         """Initialize.
 
@@ -33,7 +33,7 @@ class Tag(object):
         :param message: the message to use when creating new tags
         :param dry_run: if ``True`` do not create new tags
         """
-        logger.debug('creating witih repo dir: {}'.format(repo_dir))
+        logger.debug('creating tag witih repo dir: {}'.format(repo_dir))
         if isinstance(repo_dir, Path):
             repo_dir = str(repo_dir.resolve())
         self.repo = Repo(repo_dir)

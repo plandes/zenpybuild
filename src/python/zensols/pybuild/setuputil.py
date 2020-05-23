@@ -13,7 +13,7 @@ import inspect
 from io import StringIO, TextIOWrapper
 from pathlib import Path
 import setuptools
-from zensols.pybuild import Tag
+from zensols.pybuild import Tag, RemoteSet
 
 logger = logging.getLogger(__name__)
 
@@ -94,7 +94,7 @@ keywords classifiers
         """Return root path to the project.
 
         """
-        return self.find_root(self.setup_path, self.root_contained_file)
+        return self.find_root(self.setup_path.parent, self.root_contained_file)
 
     @classmethod
     def find_root(cls, start_path: Path,
@@ -188,8 +188,14 @@ keywords classifiers
         """Return the tag for the project.
 
         """
-        tu = Tag(self.root_path)
-        return tu
+        return Tag(self.root_path)
+
+    @property
+    def remote_set(self) -> RemoteSet:
+        """Return a remote set for the project.
+
+        """
+        return RemoteSet(self.root_path)
 
     @property
     def author(self) -> str:
@@ -270,6 +276,7 @@ keywords classifiers
             props['short_description'] = short_description
         props['user'] = self.user
         props['project'] = self.project
+        props['remotes'] = tuple(self.remote_set)
         return props
 
     def to_json(self, indent: int = 4, writer: TextIOWrapper = sys.stdout) -> str:
