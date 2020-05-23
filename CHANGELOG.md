@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 
 
+## [0.0.7] - 2020-05-23
+### Added
+- External client use via sourcing (source the `setup.py` with Python's
+  `exec`).
+- Additional project metadata useful for external clients, such as: short
+  description taken from the `README.md`, git remotes, author and other data.
+- A better write formatting that now includes a full JSON dump.  Again, this is
+  useful to external clients.
+- Update `zenbuild`, which heavily uses this project now.
+
+
 ## [0.0.6] - 2020-04-24
 ### Changed
 - Update to [zensols.util] from `zensols.actioncli`.
@@ -35,7 +46,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Initial version
 
 
-[Unreleased]: https://github.com/plandes/zenpybuild/compare/v0.0.6...HEAD
+[Unreleased]: https://github.com/plandes/zenpybuild/compare/v0.0.7...HEAD
+[0.0.7]: https://github.com/plandes/zenpybuild/compare/v0.0.6...v0.0.7
 [0.0.6]: https://github.com/plandes/zenpybuild/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/plandes/zenpybuild/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/plandes/zenpybuild/compare/v0.0.3...v0.0.4
