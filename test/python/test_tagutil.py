@@ -1,16 +1,16 @@
 import logging
 import unittest
 import copy
-from zensols.pybuild import TagUtil, Version
+from zensols.pybuild import Tag, Version
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('zensols.pybuild.test.tag')
 
 
-class TestTagUtil(unittest.TestCase):
+class TestTag(unittest.TestCase):
     def test_tagutil(self):
-        tu = TagUtil()
-        self.assertTrue(tu.get_last_tag().startswith('0.0'))
+        tu = Tag()
+        self.assertTrue(tu.last_tag.startswith('0.0'))
 
     def test_ver(self):
         vstr = Version()
@@ -70,7 +70,7 @@ class TestTagUtil(unittest.TestCase):
         self.assertTrue(vers[1] == v2)
 
     def test_tmp(self):
-        tu = TagUtil(dry_run=True)
+        tu = Tag(dry_run=True)
         entries = tu.get_entries()
         first = entries[0]
         last = entries[-1]

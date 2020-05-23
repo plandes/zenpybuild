@@ -28,3 +28,7 @@ del:
 .PHONY:			printsetup
 printsetup:
 			make PYTHON_BIN_ARGS='prsetup -n zensols.someproj -u plandes -p someproj' run
+
+.PHONY:			testsetup
+testsetup:
+			make PY_SRC_TEST_PAT=test_setuputil.py test

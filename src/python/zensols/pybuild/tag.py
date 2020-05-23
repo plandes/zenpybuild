@@ -1,5 +1,12 @@
+"""A utility class that represents a Git tag.
+
+"""
+__author__ = 'Paul Landes'
+
+from typing import Dict, List, Union
 import logging
 import sys
+from io import TextIOWrapper
 import json
 from pathlib import Path
 from datetime import datetime
@@ -9,9 +16,23 @@ from zensols.pybuild import Version
 logger = logging.getLogger(__name__)
 
 
-class TagUtil(object):
-    """Git tag helper"""
-    def __init__(self, repo_dir='.', message='none', dry_run=False):
+class Tag(object):
+    """Represents a Git tag.  It's main use is determining the last tag in a sorted
+    (by version) used to increment to the next version.  However, it also
+    creates tags and provides additional information about existing tags.
+
+    All tags have an implicit format by sorting in decimal format
+    (i.e. ``<major>.<minor>.<version>``).
+
+    """
+    def __init__(self, repo_dir: str = '.', message: str = 'none',
+                 dry_run: bool = False):
+        """Initialize.
+
+        :param repo_dir: the root Git repo directory
+        :param message: the message to use when creating new tags
+        :param dry_run: if ``True`` do not create new tags
+        """
         logger.debug('creating witih repo dir: {}'.format(repo_dir))
         if isinstance(repo_dir, Path):
             repo_dir = str(repo_dir.resolve())
@@ -20,7 +41,16 @@ class TagUtil(object):
         self.message = message
         self.dry_run = dry_run
 
-    def get_entries(self):
+    def get_entries(self) -> List[Dict[str, str]]:
+        """Return a list of dicts, each with information about the tag.
+
+        Keys::
+            - name: the name of the tag
+            - ver: the version of the tag (in format ``v<major>.<minor>.<debug>``)
+            - date: date the tag was created
+            - tag: the tag without the prefix (i.e. sans ``v``)
+            - message: the comment given at tag creation
+        """
         tags = self.repo.tags
         logger.debug('tags: {}'.format(tags))
         tag_entries = []
@@ -40,30 +70,43 @@ class TagUtil(object):
         tag_entries = sorted(tag_entries, key=lambda t: t['ver'])
         return tag_entries
 
-    def last_tag_entry(self):
+    @property
+    def last_tag_entry(self) -> Dict[str, str]:
+        """Return the last entry given by ``get_entries``.
+
+        :py:meth:`Tag.get_entries`
+        """
         entries = self.get_entries()
         logger.debug('entires: {}'.format(entries))
         if (len(entries) > 0):
             return entries[-1]
 
-    def get_last_tag(self):
-        entry = self.last_tag_entry()
+    @property
+    def last_tag(self) -> str:
+        """Return the last tag.
+
+        """
+        entry = self.last_tag_entry
         if entry:
             return entry['ver'].format(prefix='')
 
-    def print_last_tag(self):
-        last_tag = self.get_last_tag()
-        if last_tag:
-            print(last_tag)
+    @property
+    def last_commit(self):
+        """Return rhe last commit ID (sha1).
 
-    def get_last_commit(self):
+        """
         commits = list(self.repo.iter_commits('HEAD'))
         if len(commits) > 0:
             return commits[0]
 
-    def get_info(self):
+    @property
+    def build_info(self) -> Dict[str, Union[str, dict]]:
+        """Return information about the last commit and a build time with the current
+        time.
+
+        """
         inf = {'build_date': datetime.now().isoformat()}
-        last_entry = self.last_tag_entry()
+        last_entry = self.last_tag_entry
         if last_entry:
             tag = last_entry['tag']
             message = None
@@ -72,7 +115,7 @@ class TagUtil(object):
             inf.update({'tag': last_entry['ver'].format(prefix=''),
                         'name': last_entry['name'],
                         'message': message})
-        c = self.get_last_commit()
+        c = self.last_commit
         if c:
             inf['commit'] = {'author': str(c.author),
                              'date': c.committed_datetime.isoformat(),
@@ -80,11 +123,17 @@ class TagUtil(object):
                              'summary': c.summary}
         return inf
 
-    def dump_info(self, writer=sys.stdout):
-        json.dump(self.get_info(), writer, indent=2)
+    def to_json(self, indent: int = 4, writer: TextIOWrapper = sys.stdout) -> str:
+        """Return build information in JSON format.
+
+        """
+        json.dump(self.build_info, writer, indent=4)
 
     def delete_last_tag(self):
-        entry = self.last_tag_entry()
+        """Delete the last commit tag.
+
+        """
+        entry = self.last_tag_entry
         tag = entry['tag']
         name = entry['name']
         logger.info('deleting: {}'.format(name))
@@ -92,7 +141,10 @@ class TagUtil(object):
             TagReference.delete(self.repo, tag)
 
     def recreate_last_tag(self):
-        entry = self.last_tag_entry()
+        """Delete the last tag and create a new one on the latest commit.
+
+        """
+        entry = self.last_tag_entry
         tag = entry['tag']
         name = entry['name']
         msg = entry['message']
@@ -104,7 +156,10 @@ class TagUtil(object):
             TagReference.create(self.repo, name, message=msg)
 
     def create(self):
-        entry = self.last_tag_entry()
+        """Create a new tag on the latest commit.
+
+        """
+        entry = self.last_tag_entry
         if entry is None:
             ver = Version.from_string('v0.0.0')
         else:

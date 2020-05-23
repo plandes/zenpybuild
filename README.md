@@ -1,4 +1,4 @@
-# Inspect and iterate on git tags and invoke setup utils.
+# Inspect and iterate on git tags and invoke setup utils
 
 [![Travis CI Build Status][travis-badge]][travis-link]
 [![PyPI][pypi-badge]][pypi-link]
