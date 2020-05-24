@@ -1,0 +1,54 @@
+zensols.pybuild package
+=======================
+
+Submodules
+----------
+
+zensols.pybuild.cli module
+--------------------------
+
+.. automodule:: zensols.pybuild.cli
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.pybuild.remote module
+-----------------------------
+
+.. automodule:: zensols.pybuild.remote
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.pybuild.setuputil module
+--------------------------------
+
+.. automodule:: zensols.pybuild.setuputil
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.pybuild.tag module
+--------------------------
+
+.. automodule:: zensols.pybuild.tag
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+zensols.pybuild.version module
+------------------------------
+
+.. automodule:: zensols.pybuild.version
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: zensols.pybuild
+   :members:
+   :undoc-members:
+   :show-inheritance:

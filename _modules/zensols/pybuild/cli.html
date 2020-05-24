@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>zensols.pybuild.cli &mdash; Zensols Python Build Toolset 0.0.7 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../top.html" class="icon icon-home"> Zensols Python Build Toolset
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../top.html">Zensols Python Build Toolset</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../top.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>zensols.pybuild.cli</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for zensols.pybuild.cli</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Client entry point for the command line program.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Paul Landes&#39;</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">zensols.cli</span> <span class="k">import</span> <span class="n">OneConfPerActionOptionsCli</span>
+<span class="kn">from</span> <span class="nn">zensols.pybuild</span> <span class="k">import</span> <span class="n">Tag</span><span class="p">,</span> <span class="n">SetupUtil</span>
+
+
+<span class="c1"># The version of the applicatin</span>
+<span class="c1"># *Important*: must also be updated in src/python/setup.py</span>
+<span class="n">VERSION</span> <span class="o">=</span> <span class="s1">&#39;0.0.7&#39;</span>
+
+
+<div class="viewcode-block" id="Cli"><a class="viewcode-back" href="../../../api/zensols.pybuild.html#zensols.pybuild.cli.Cli">[docs]</a><span class="k">class</span> <span class="nc">Cli</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">setup_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">output_format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">setup_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_format</span> <span class="o">=</span> <span class="n">output_format</span>
+
+<div class="viewcode-block" id="Cli.write"><a class="viewcode-back" href="../../../api/zensols.pybuild.html#zensols.pybuild.cli.Cli.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sutil</span> <span class="o">=</span> <span class="n">SetupUtil</span><span class="o">.</span><span class="n">source</span><span class="p">(</span><span class="n">start_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">setup_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_format</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
+            <span class="n">sutil</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sutil</span><span class="o">.</span><span class="n">write</span><span class="p">()</span></div></div>
+
+
+<span class="c1"># recommended app command line</span>
+<div class="viewcode-block" id="ConfAppCommandLine"><a class="viewcode-back" href="../../../api/zensols.pybuild.html#zensols.pybuild.cli.ConfAppCommandLine">[docs]</a><span class="k">class</span> <span class="nc">ConfAppCommandLine</span><span class="p">(</span><span class="n">OneConfPerActionOptionsCli</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">repo_dir_op</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-r&#39;</span><span class="p">,</span> <span class="s1">&#39;--repodir&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>
+                       <span class="p">{</span><span class="s1">&#39;dest&#39;</span><span class="p">:</span> <span class="s1">&#39;repo_dir&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;metavar&#39;</span><span class="p">:</span> <span class="s1">&#39;DIRECTORY&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
+                        <span class="s1">&#39;help&#39;</span><span class="p">:</span> <span class="s1">&#39;path of the repository&#39;</span><span class="p">}]</span>
+        <span class="n">msg_op</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;-m&#39;</span><span class="p">,</span> <span class="s1">&#39;--message&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>
+                  <span class="p">{</span><span class="s1">&#39;dest&#39;</span><span class="p">:</span> <span class="s1">&#39;message&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;metavar&#39;</span><span class="p">:</span> <span class="s1">&#39;STRING&#39;</span><span class="p">,</span>
+                   <span class="s1">&#39;help&#39;</span><span class="p">:</span> <span class="s1">&#39;documentation for the new tag&#39;</span><span class="p">}]</span>
+        <span class="n">cnf</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;executors&#39;</span><span class="p">:</span>
+               <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;tag&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;executor&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">params</span><span class="p">:</span> <span class="n">Tag</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">),</span>
+                 <span class="s1">&#39;actions&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;last&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;meth&#39;</span><span class="p">:</span> <span class="s1">&#39;print_last_tag&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="s1">&#39;Print the last tag&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">repo_dir_op</span><span class="p">]},</span>
+                             <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;info&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;meth&#39;</span><span class="p">:</span> <span class="s1">&#39;to_json&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="s1">&#39;give repo version information in JSON&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">repo_dir_op</span><span class="p">]},</span>
+                             <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;create&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="s1">&#39;Create a new tag&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">repo_dir_op</span><span class="p">,</span> <span class="n">msg_op</span><span class="p">]},</span>
+                             <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;del&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;meth&#39;</span><span class="p">:</span> <span class="s1">&#39;delete_last_tag&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="s1">&#39;Delete the tag&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">repo_dir_op</span><span class="p">]},</span>
+                             <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;recreate&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;meth&#39;</span><span class="p">:</span> <span class="s1">&#39;recreate_last_tag&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">repo_dir_op</span><span class="p">]}],</span>
+                 <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="s1">&#39;Recreate the tag (delete then add)&#39;</span><span class="p">},</span>
+                <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;setup&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;executor&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">params</span><span class="p">:</span> <span class="n">Cli</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">),</span>
+                 <span class="s1">&#39;actions&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;write&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;meth&#39;</span><span class="p">:</span> <span class="s1">&#39;write&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;doc&#39;</span><span class="p">:</span> <span class="s1">&#39;print the setup used for setuptools&#39;</span><span class="p">,</span>
+                              <span class="s1">&#39;opts&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="s1">&#39;--setupapth&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>
+                                        <span class="p">{</span><span class="s1">&#39;metavar&#39;</span><span class="p">:</span> <span class="s1">&#39;DIRECTORY&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;dest&#39;</span><span class="p">:</span> <span class="s1">&#39;setup_path&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;help&#39;</span><span class="p">:</span> <span class="s1">&#39;the path to the setup directory (setup.py)&#39;</span><span class="p">}],</span>
+                                       <span class="p">[</span><span class="s1">&#39;-f&#39;</span><span class="p">,</span> <span class="s1">&#39;--format&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span>
+                                        <span class="p">{</span><span class="s1">&#39;metavar&#39;</span><span class="p">:</span> <span class="s1">&#39;flat|json&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;dest&#39;</span><span class="p">:</span> <span class="s1">&#39;output_format&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="s1">&#39;flat&#39;</span><span class="p">,</span>
+                                         <span class="s1">&#39;help&#39;</span><span class="p">:</span> <span class="s1">&#39;format used to write the data&#39;</span><span class="p">}]</span>
+                              <span class="p">]}]}],</span>
+               <span class="s1">&#39;whine&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ConfAppCommandLine</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">cnf</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="n">VERSION</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../api/zensols.pybuild.html#zensols.pybuild.cli.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">ConfAppCommandLine</span><span class="p">()</span>
+    <span class="n">cl</span><span class="o">.</span><span class="n">invoke</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Paul Landes
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
