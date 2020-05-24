@@ -288,7 +288,7 @@ keywords classifiers
         """Called in the ``setup.py`` to invoke the Python ``setuptools`` package.
         This assembles the information needed and calls ``setuptools.setup``.
 
-        :py:fun:`setuptools:setup`
+        :py:func:`setuptools:setup`
 
         """
         if self.DO_SETUP:
