@@ -1,0 +1,23 @@
+{
+    "author": "Paul Landes",
+    "author_email": "landes@mailc.net",
+    "name": "zensols.zenpybuild",
+    "root_path": ".",
+    "setup_path": ".",
+    "url": "https://github.com/plandes/zenpybuild",
+    "version": "0.0.7",
+    "build": {
+        "tag": "0.0.7",
+        "name": "v0.0.7"
+    },
+    "short_description": "Zensols Python Build Toolset",
+    "description": "Inspect and iterate on git tags and invoke setup utils",
+    "user": "plandes",
+    "project": "zenpybuild",
+    "remotes": [
+        [
+            "github",
+            "git@github.com:plandes/zenpybuild.git"
+        ]
+    ]
+}

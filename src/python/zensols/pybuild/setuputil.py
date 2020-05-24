@@ -269,7 +269,9 @@ keywords classifiers
                 writer.write(f'{sp}{field}={props[field]}\n')
 
     def get_info(self) -> Dict[str, Union[str, dict]]:
-        props = self.get_properties(False)[1]
+        props = self.get_properties(True)[1]
+        for path in 'setup_path root_path'.split():
+            props[path] = str(props[path].absolute())
         props['build'] = self.tag.build_info
         short_description = self.short_description
         if short_description:

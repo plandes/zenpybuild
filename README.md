@@ -8,6 +8,11 @@ Inspect and iterate on git tags.  This manages tags in a git repository and
 invokes setup utils.  This is used in the [zen build setup] as well.
 
 
+## Documentation
+
+See the [full documentation](https://plandes.github.io/zenpybuild/).
+
+
 ## Obtaining
 
 The easist way to install the command line program is via the `pip` installer:
@@ -24,8 +29,6 @@ See the [zotsite setup.py] file for an example of how to use it as in setup
 tools.
 
 
-
-
 ## Changelog
 
 An extensive changelog is available [here](CHANGELOG.md).
@@ -33,25 +36,9 @@ An extensive changelog is available [here](CHANGELOG.md).
 
 ## License
 
-Copyright (c) 2018 Paul Landes
+[MIT License](LICENSE.md)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
-of the Software, and to permit persons to whom the Software is furnished to do
-so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Copyright (c) 2018 - 2020 Paul Landes
 
 
 <!-- links -->
@@ -62,7 +49,6 @@ SOFTWARE.
 [pypi-badge]: https://img.shields.io/pypi/v/zensols.pybuild.svg
 [python37-badge]: https://img.shields.io/badge/python-3.7-blue.svg
 [python37-link]: https://www.python.org/downloads/release/python-370
-
 
 [zen build setup]: https://github.com/plandes/zenbuild
 [zotsite setup.py]: https://github.com/plandes/zotsite/blob/master/src/python/setup.py
