@@ -1,8 +1,13 @@
 ## makefile automates the build and deployment for python projects
+#
+## NOTE: this build can not include git.mk as a PROJ_MODULES, and therefore
+## python-doc etc; this is because git.mk requires build.json be created and
+## the environemnt, for which a propery setup.py is needed but not available
+## since this library enables that functionality
 
 # type of project
-PROJ_TYPE=		python
-PROJ_MODULES=		git python-doc
+PROJ_TYPE =		python
+#PROJ_MODULES =		git git python-doc python-doc-deploy
 
 PY_DOC_SOURCE_DEPS =	cpbuildinfo
 
@@ -12,6 +17,11 @@ include ./zenbuild/main.mk
 # targets
 .PHONY:			cpbuildinfo
 cpbuildinfo:		$(GIT_BUILD_INFO)
+
+.PHONY:			tmp
+tmp:
+			@echo STARTHERE
+			@echo $(GIT_BUILD_INFO_BIN) $(GIT_BUILD_INFO)
 
 $(GIT_BUILD_INFO):
 			@echo "copying static build info to $(GIT_BUILD_INFO)"
