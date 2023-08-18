@@ -7,7 +7,9 @@
 
 # type of project
 PROJ_TYPE =		python
-#PROJ_MODULES =		git git python-doc python-doc-deploy
+PROJ_MODULES =		git python-doc python-doc-deploy
+# make default python config happy
+GIT_BUILD_INFO_BIN =	echo
 
 PY_DOC_SOURCE_DEPS =	cpbuildinfo
 
