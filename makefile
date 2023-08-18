@@ -18,15 +18,14 @@ include ./zenbuild/main.mk
 .PHONY:			cpbuildinfo
 cpbuildinfo:		$(GIT_BUILD_INFO)
 
-.PHONY:			tmp
-tmp:
-			@echo STARTHERE
-			@echo $(GIT_BUILD_INFO_BIN) $(GIT_BUILD_INFO)
-
 $(GIT_BUILD_INFO):
 			@echo "copying static build info to $(GIT_BUILD_INFO)"
 			mkdir -p `dirname $(GIT_BUILD_INFO)`
 			cp src/build.json $(GIT_BUILD_INFO)
+
+.PHONY:			testdeps
+testdeps:		deps
+			$(PIP_BIN) install $(PIP_ARGS) -r $(PY_SRC)/requirements-test.txt
 
 .PHONY:			last
 last:
