@@ -10,7 +10,7 @@ from zensols.pybuild import Tag, SetupUtil
 
 # The version of the applicatin
 # *Important*: must also be updated in src/python/setup.py
-VERSION = '0.0.7'
+VERSION = '0.1.0'
 
 
 class Cli(object):

@@ -10,7 +10,7 @@ logger = logging.getLogger('zensols.pybuild.test.tag')
 class TestTag(unittest.TestCase):
     def test_tagutil(self):
         tu = Tag()
-        self.assertTrue(tu.last_tag.startswith('0.0'))
+        self.assertTrue(tu.last_tag.startswith('0.1'))
 
     def test_ver(self):
         vstr = Version()
