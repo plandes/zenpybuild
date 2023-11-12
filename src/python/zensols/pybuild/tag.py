@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 
 
 class Tag(object):
-    """Represents a Git tag.  It's main use is determining the last tag in a sorted
-    (by version) used to increment to the next version.  However, it also
+    """Represents a Git tag.  It's main use is determining the last tag in a
+    sorted (by version) used to increment to the next version.  However, it also
     creates tags and provides additional information about existing tags.
 
     All tags have an implicit format by sorting in decimal format
@@ -33,10 +33,14 @@ class Tag(object):
         :param message: the message to use when creating new tags
         :param dry_run: if ``True`` do not create new tags
         """
-        logger.debug('creating tag witih repo dir: {}'.format(repo_dir))
+        if logger.isEnabledFor(logging.INFO):
+            logger.info(f'creating tag witih repo dir: {repo_dir}')
         if isinstance(repo_dir, Path):
             repo_dir = str(repo_dir.resolve())
-        self.repo = Repo(repo_dir)
+        try:
+            self.repo = Repo(repo_dir)
+        except Exception as e:
+            raise RuntimeError(f'Can not resolve repo: {repo_dir}: {e}') from e
         assert not self.repo.bare
         self.message = message
         self.dry_run = dry_run
@@ -46,7 +50,8 @@ class Tag(object):
 
         Keys::
             - name: the name of the tag
-            - ver: the version of the tag (in format ``v<major>.<minor>.<debug>``)
+            - ver: the version of the tag (in format
+                   ``v<major>.<minor>.<debug>``)
             - date: date the tag was created
             - tag: the tag without the prefix (i.e. sans ``v``)
             - message: the comment given at tag creation

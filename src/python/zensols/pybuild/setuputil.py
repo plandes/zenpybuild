@@ -319,8 +319,9 @@ keywords classifiers
                     the instantiation of this class
 
         """
-        logger.debug(f'sourcing: start={start_path}, ' +
-                     f'rel_setup_path={rel_setup_path}')
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug(f'sourcing: start={start_path}, ' +
+                         f'rel_setup_path={rel_setup_path}')
         do_setup = cls.DO_SETUP
         try:
             cls.DO_SETUP = False
