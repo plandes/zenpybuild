@@ -8,6 +8,8 @@ logger = logging.getLogger(__name__)
 
 
 class TestSetupUtil(unittest.TestCase):
+    DEBUG = False
+
     def test_setup_util(self):
         setup_str = """name=zensols.progname
 packages=[]
@@ -19,7 +21,7 @@ url=https://github.com/plandes/progname
 download_url=https://github.com/plandes/progname/releases/download/v%(ver)s/zensols.progname-%(ver)s-py3-none-any.whl
 long_description=# Inspect and iterat...
 long_description_content_type=text/markdown
-install_requires=['GitPython~=3.1.29', 'gitdb2~=2.0.3']
+install_requires=['GitPython~=3.1.29', 'gitdb2~=2.0.3', 'plac']
 keywords=['akeyword']
 classifiers=['aclass']
 entry_points={'console_scripts': ['progname=zensols.progname:main']}
@@ -38,7 +40,7 @@ entry_points={'console_scripts': ['progname=zensols.progname:main']}
         sio = StringIO()
         su.write(writer=sio)
         logger.debug(sio.getvalue())
-        if False:
+        if self.DEBUG:
             print(setup_str)
             print('-' * 40)
             print(sio.getvalue())
