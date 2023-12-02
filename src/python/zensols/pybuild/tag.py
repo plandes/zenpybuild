@@ -36,8 +36,8 @@ class Tag(object):
         :param dry_run: if ``True`` do not create new tags
 
         """
-        if logger.isEnabledFor(logging.INFO):
-            logger.info(f'creating tag witih repo dir: {repo_dir}')
+        if logger.isEnabledFor(logging.DEBUG):
+            logger.debug(f'tag object instance repo dir: {repo_dir}')
         if isinstance(repo_dir, Path):
             repo_dir = str(repo_dir.resolve())
         try:
@@ -131,6 +131,7 @@ class Tag(object):
                 writer: TextIOWrapper = sys.stdout) -> str:
         """Return build information in JSON format."""
         json.dump(self.build_info, writer, indent=4)
+        writer.write('\n')
 
     def delete_last_tag(self):
         """Delete the last commit tag."""

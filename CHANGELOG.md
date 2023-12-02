@@ -7,11 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+
+## [0.1.1] - 2023-12-02
+### Changed
+- Replace old [zensols.util] `actioncli` CLI API with `plac`.
+
+### Removed
+- Dependency on [zensols.util].
+
+
 ## [0.1.0] - 2023-08-18
 ### Added
 - Sphinx documentation, which includes API docs.
 
-### Changes
+### Changed
 - Fixed security vulnerability.
 - Fixed setuputils warnings.
 
@@ -54,7 +63,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Initial version
 
 
-[Unreleased]: https://github.com/plandes/zenpybuild/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/plandes/zenpybuild/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/plandes/zenpybuild/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/plandes/zenpybuild/compare/v0.0.7...v0.1.0
 [0.0.7]: https://github.com/plandes/zenpybuild/compare/v0.0.6...v0.0.7
 [0.0.6]: https://github.com/plandes/zenpybuild/compare/v0.0.5...v0.0.6

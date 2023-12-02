@@ -3,7 +3,7 @@ from os import path
 from setuptools import setup
 
 # also update in src/python/zensols/pybuild/cli.py
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 README_FILE = 'README.md'
 REQUIREMENTS_FILE = 'requirements.txt'
 
