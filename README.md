@@ -3,7 +3,6 @@
 [![PyPI][pypi-badge]][pypi-link]
 [![Python 3.9][python39-badge]][python39-link]
 [![Python 3.10][python310-badge]][python310-link]
-[![Build Status][build-badge]][build-link]
 
 Inspect and iterate on git tags.  This manages tags in a git repository and
 invokes setup utils.  This is used in the [zen build setup] as well.
@@ -51,8 +50,6 @@ Copyright (c) 2018 - 2020 Paul Landes
 [python39-link]: https://www.python.org/downloads/release/python-390
 [python310-badge]: https://img.shields.io/badge/python-3.10-blue.svg
 [python310-link]: https://www.python.org/downloads/release/python-3100
-[build-badge]: https://github.com/plandes/pybuild/workflows/CI/badge.svg
-[build-link]: https://github.com/plandes/pybuild/actions
 
 [zen build setup]: https://github.com/plandes/zenbuild
 [zotsite setup.py]: https://github.com/plandes/zotsite/blob/master/src/python/setup.py
