@@ -120,8 +120,8 @@ keywords classifiers
 
     @property
     def packages(self) -> List[str]:
-        """Get a list of directories that contain package information to tbe included
-        with the distribution files.
+        """Get a list of directories that contain package information to tbe
+        included with the distribution files.
 
         """
         dirs = []
@@ -281,12 +281,14 @@ keywords classifiers
         props['remotes'] = tuple(self.remote_set)
         return props
 
-    def to_json(self, indent: int = 4, writer: TextIOWrapper = sys.stdout) -> str:
+    def to_json(self, indent: int = 4,
+                writer: TextIOWrapper = sys.stdout) -> str:
         json.dump(self.get_info(), writer, indent=indent)
 
     def setup(self):
-        """Called in the ``setup.py`` to invoke the Python ``setuptools`` package.
-        This assembles the information needed and calls ``setuptools.setup``.
+        """Called in the ``setup.py`` to invoke the Python ``setuptools``
+        package.  This assembles the information needed and calls
+        ``setuptools.setup``.
 
         :py:func:`setuptools:setup`
 
@@ -304,10 +306,10 @@ keywords classifiers
     def source(cls, start_path: Path = Path('.').absolute(),
                rel_setup_path: Path = Path('src/python/setup.py'),
                var: str = 'su'):
-        """Source the ``setup.py`` ``setuptools`` file to get an instance of this class
-        to be used in other APIs that want to access build information.  This
-        is done by using ``exec`` to evaluate the ``setup.py`` file and
-        skipping the call to ``setuptools.setup``.
+        """Source the ``setup.py`` ``setuptools`` file to get an instance of
+        this class to be used in other APIs that want to access build
+        information.  This is done by using ``exec`` to evaluate the
+        ``setup.py`` file and skipping the call to ``setuptools.setup``.
 
         :param rel_setup_path: the relative path to the ``setup.py`` file,
                                which defaults to ``src/python/setup.py`` per

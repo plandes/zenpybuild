@@ -106,8 +106,8 @@ class Tag(object):
 
     @property
     def build_info(self) -> Dict[str, Union[str, dict]]:
-        """Return information about the last commit and a build time with the current
-        time.
+        """Return information about the last commit and a build time with the
+        current time.
 
         """
         inf = {'build_date': datetime.now().isoformat()}
@@ -128,7 +128,8 @@ class Tag(object):
                              'summary': c.summary}
         return inf
 
-    def to_json(self, indent: int = 4, writer: TextIOWrapper = sys.stdout) -> str:
+    def to_json(self, indent: int = 4,
+                writer: TextIOWrapper = sys.stdout) -> str:
         """Return build information in JSON format.
 
         """

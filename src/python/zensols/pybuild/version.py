@@ -35,8 +35,8 @@ class Version(object):
         return prefix + '{major}.{minor}.{debug}'.format(**self.__dict__)
 
     def increment(self, decimal='debug', inc=1):
-        """Increment the version in the instance.  By default the debug portion of the
-        instance is incremented.
+        """Increment the version in the instance.  By default the debug portion
+        of the instance is incremented.
 
         """
         if decimal == 'major':

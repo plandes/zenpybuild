@@ -12,8 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 class RemoteSet(object):
-    """Represents a Git remote.  This is used to populate build metadata used for
-    other aspects of the build process rather than just ``setuptools``.
+    """Represents a Git remote.  This is used to populate build metadata used
+    for other aspects of the build process rather than just ``setuptools``.
 
     """
     def __init__(self, repo_dir: Path = Path('.')):
