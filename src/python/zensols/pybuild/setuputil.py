@@ -34,6 +34,7 @@ keywords classifiers
 """
     DO_SETUP = True
     DEFAULT_ROOT_CONTAINED_FILE = 'README.md'
+    DEFAULT_SETUP_FILE = Path('src/python/setup.py')
 
     def __init__(self, name: str, user: str, project: str,
                  setup_path: Path = None, package_names: List[str] = None,
@@ -304,8 +305,7 @@ keywords classifiers
 
     @classmethod
     def source(cls, start_path: Path = Path('.').absolute(),
-               rel_setup_path: Path = Path('src/python/setup.py'),
-               var: str = 'su'):
+               rel_setup_path: Path = None, var: str = 'su'):
         """Source the ``setup.py`` ``setuptools`` file to get an instance of
         this class to be used in other APIs that want to access build
         information.  This is done by using ``exec`` to evaluate the
@@ -321,6 +321,8 @@ keywords classifiers
                     the instantiation of this class
 
         """
+        if rel_setup_path is None:
+            rel_setup_path = cls.DEFAULT_SETUP_FILE
         if logger.isEnabledFor(logging.DEBUG):
             logger.debug(f'sourcing: start={start_path}, ' +
                          f'rel_setup_path={rel_setup_path}')
