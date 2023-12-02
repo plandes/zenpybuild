@@ -1,11 +1,9 @@
 # Inspect and iterate on git tags and invoke setup utils
 
 [![PyPI][pypi-badge]][pypi-link]
-
-[![Travis CI Build Status][travis-badge]][travis-link]
-
 [![Python 3.9][python39-badge]][python39-link]
 [![Python 3.10][python310-badge]][python310-link]
+[![Build Status][build-badge]][build-link]
 
 Inspect and iterate on git tags.  This manages tags in a git repository and
 invokes setup utils.  This is used in the [zen build setup] as well.
