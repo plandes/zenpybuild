@@ -30,8 +30,11 @@ class Tag(object):
         """Initialize.
 
         :param repo_dir: the root Git repo directory
+
         :param message: the message to use when creating new tags
+
         :param dry_run: if ``True`` do not create new tags
+
         """
         if logger.isEnabledFor(logging.INFO):
             logger.info(f'creating tag witih repo dir: {repo_dir}')
@@ -88,18 +91,14 @@ class Tag(object):
 
     @property
     def last_tag(self) -> str:
-        """Return the last tag.
-
-        """
+        """Return the last tag."""
         entry = self.last_tag_entry
         if entry:
             return entry['ver'].format(prefix='')
 
     @property
     def last_commit(self):
-        """Return rhe last commit ID (sha1).
-
-        """
+        """Return rhe last commit ID (sha1)."""
         commits = list(self.repo.iter_commits('HEAD'))
         if len(commits) > 0:
             return commits[0]
@@ -130,15 +129,11 @@ class Tag(object):
 
     def to_json(self, indent: int = 4,
                 writer: TextIOWrapper = sys.stdout) -> str:
-        """Return build information in JSON format.
-
-        """
+        """Return build information in JSON format."""
         json.dump(self.build_info, writer, indent=4)
 
     def delete_last_tag(self):
-        """Delete the last commit tag.
-
-        """
+        """Delete the last commit tag."""
         entry = self.last_tag_entry
         tag = entry['tag']
         name = entry['name']
@@ -147,9 +142,7 @@ class Tag(object):
             TagReference.delete(self.repo, tag)
 
     def recreate_last_tag(self):
-        """Delete the last tag and create a new one on the latest commit.
-
-        """
+        """Delete the last tag and create a new one on the latest commit."""
         entry = self.last_tag_entry
         tag = entry['tag']
         name = entry['name']
@@ -162,9 +155,7 @@ class Tag(object):
             TagReference.create(self.repo, name, message=msg)
 
     def create(self):
-        """Create a new tag on the latest commit.
-
-        """
+        """Create a new tag on the latest commit."""
         entry = self.last_tag_entry
         if entry is None:
             ver = Version.from_string('v0.0.0')
